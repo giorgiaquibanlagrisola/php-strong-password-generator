@@ -1,3 +1,27 @@
+<?php
+    $password = '';
+    if (isset($_GET['length'])) {
+        $passLength = intval($_GET['length']);
+
+
+        if ($passLength >= 3 && $passLength <= 15) {
+            $validCharacters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!$%&()=?^_-[]';
+            $min = 0;
+            $max = strlen($validCharacters) - 1;
+            
+            for ($i = 0; $i < $passLength; $i++) {
+                $randomCharacter = $validCharacters[mt_rand($min, $max)];
+                $password .= $randomCharacter;
+
+            }
+        }
+    }
+
+    
+
+    
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,10 +49,12 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <form class="row">
+                    <form action="" method="GET">
                         <div class="mb-3">
-                            <label for="length" class="visually-hidden">Lunghezza psswrd</label>
-                            <input type="number" class="form-control" id="inputPassword2" placeholder="Inserisci la lunghezza">
+                            <label for="length" class="form-label">
+                                Lunghezza della password
+                            </label>
+                            <input type="number" id="length" name="length" class="form-control" required min="3" max="15" placeholder="Inserisci lunghezza">
                         </div>
                         <div>
                             <button type="submit" class="btn btn-primary mb-3">
@@ -36,6 +62,16 @@
                             </button>
                         </div>
                     </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h3>
+                        La nuova password generata è: 
+                        <?php 
+                            echo $password;
+                        ?>
+                    </h3>
                 </div>
             </div>
         </div>
